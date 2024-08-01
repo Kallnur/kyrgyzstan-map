@@ -1,0 +1,66 @@
+/* MapComponent.css */
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-wrapper {
+  display: flex;
+  margin: 0 auto;
+}
+.Map{
+  width:100%; 
+  height: 65vh;
+}
+.map-wrapper {
+  overflow: hidden;
+  background-color: white;
+  margin-bottom: 10px;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+.custom-popup {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 5px;
+  padding: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000; 
+}
+
+.label-tooltip {
+  color: black;
+  background-color: white;
+
+}
+
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.loader {
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+@media screen and (max-height: 800px) {
+ .Map{
+  height: 70vh;
+ }
+}
+

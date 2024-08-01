@@ -1,0 +1,86 @@
+.search-containerRlc {
+  padding: 20px;
+}
+
+.searchBtns {
+  margin-bottom: 10px;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 10px;
+  animation: 1s show ease;
+}
+
+@keyframes show {
+  0% { opacity: 0; }
+  50% {opacity: 0.5;}
+  100% { opacity: 1; }
+}
+
+.search-form {
+  margin-bottom: 20px;
+}
+
+.results-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.results-table th, .results-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+
+}
+
+.results-table th {
+  background-color: #f2f2f2;
+}
+
+.specialInput {
+  height: 38px;
+  width: 150px; /* Ensure uniform width */
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+.details-button {
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+.details-button:hover {
+  background-color: #45a049;
+}
+.btn, .details-button {
+  padding: 8px;
+  border-radius: 4px;
+  outline: none;
+  border: none;
+  color: white;
+  background-color: #40a9ff;
+  cursor: pointer;
+}
+.btn:hover, .details-button:hover {
+  background-color: #0890ff;
+}
+
+.error-message {
+  color: red;
+  width: 200px;
+  font-size: 11px;
+text-wrap: wrap;
+}
+
+.search-form input,
+.search-form select,
+.search-form .Select__control {
+  width: 100%; /* Ensure all form elements are full width within their container */
+  max-width: 200px; /* Set a max-width for inputs */
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+.search-container form .grid-container > div {
+  margin-bottom: 15px; /* Add some margin between the grid items */
+}

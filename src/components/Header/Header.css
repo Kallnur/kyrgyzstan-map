@@ -1,0 +1,49 @@
+/* Header.css */
+
+.Header {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+
+  padding: 10px 0;
+  background-color: #ffffff; /* Light background color for better contrast */
+  border-bottom: 2px solid #ddd; /* Subtle border for separation */
+}
+
+.gerb-icon {
+  width: 50px; /* Larger icon for better visibility */
+  height: 50px;
+}
+
+.Header span {
+  font-family:  'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-size: 18px;
+  color: #333; /* Darker text color for better readability */
+  line-height: 1.5; /* Better line spacing */
+}
+.headerLogo{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.selectSocialBtns {
+  display: flex;
+  gap: 20px; /* Reduced gap for more compact buttons */
+}
+
+.selectSocialBtns a {
+  padding: 10px 20px; /* More padding for larger buttons */
+  border: none;
+  outline: none;
+  border-radius: 8px;
+  font-size: 16px;
+  color: black;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+text-decoration: none;
+font-weight: 500;
+}
+
+.selectSocialBtns a:hover {
+  color: #1890ff;
+}
