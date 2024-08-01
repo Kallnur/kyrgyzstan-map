@@ -33,6 +33,7 @@ const MapComponent = () => {
   const [fullRegionData, setFullRegionData] = useState([]);
   const [loading, setLoading] = useState(true);
   const mapRef = useRef();
+  const [mapZoom, setMapZoom] = useState(7); // State to manage zoom level
 
   useEffect(() => {
     const fetchAllRegionInfo = async () => {
@@ -60,6 +61,23 @@ const MapComponent = () => {
       map.setView([41.2044, 74.7661]);
     }
   }, [mapRef]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 1000) {
+        setMapZoom(6);
+      } else {
+        setMapZoom(7);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    handleResize(); // Set the initial zoom level based on the window size
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   const position = [41.2044, 74.7661];
   const filteredRegions = kyrgyzstanRegions;
@@ -119,7 +137,7 @@ const MapComponent = () => {
         ) : (
           <MapContainer
             center={position}
-            zoom={7}
+            zoom={mapZoom}
             className='Map'
             zoomControl={false}
             attributionControl={false}
@@ -146,14 +164,14 @@ const MapComponent = () => {
           <div className="custom-popup">
             <h3>{hoveredRegion.name}</h3>
             {hoveredRegion.details && (
-              <>
+              <div class="custop-popup-content">
                 <p>Количество получателей: {hoveredRegion.details.recipient_count}</p>
                 <p>Мужчины получатели: {hoveredRegion.details.recipient_male_count}</p>
                 <p>Женщины получатели: {hoveredRegion.details.recipient_female_count}</p>
                 <p>Дети до 16-лет: {hoveredRegion.details.relative_position_count}</p>
                 <p>Количество всего человек: {hoveredRegion.details.relative_count}</p>
                 <p>Общая сумма: {hoveredRegion.details.payment_sum}</p>
-              </>
+              </div>
             )}
           </div>
         )}
