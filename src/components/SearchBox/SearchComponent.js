@@ -29,8 +29,6 @@ const SearchComponent = () => {
     relative: '',
     search: '',
     pin: '',
-    page: '',
-    page_size: '',
     territorial_object: '',
     territorial_unit: ''
   });
@@ -53,6 +51,9 @@ const SearchComponent = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedRecipient, setSelectedRecipient] = useState(null);
   const [pinError, setPinError] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
+  const [totalResults, setTotalResults] = useState(0);
 
   useEffect(() => {
     const fetchAllReferences = async () => {
@@ -73,7 +74,7 @@ const SearchComponent = () => {
 
   useEffect(() => {
     handleSubmit();
-  }, [formValues]);
+  }, [formValues, currentPage, pageSize]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -83,7 +84,7 @@ const SearchComponent = () => {
   const handleSearchChange = (e, field) => {
     setFormValues({ ...formValues, [field]: e.target.value });
 
-    if (field === 'pin' && e.target.value.length < 14 && e.target.value.length  > 0) {
+    if (field === 'pin' && e.target.value.length < 14 && e.target.value.length > 0) {
       setPinError('ПИН не содержит 14 символов');
     } else {
       setPinError('');
@@ -104,8 +105,9 @@ const SearchComponent = () => {
       .join('&');
 
     try {
-      const response = await axios.get(`${API_URL}/recipient/recipient/?${query}`);
+      const response = await axios.get(`${API_URL}/recipient/recipient/?${query}&page=${currentPage}&page_size=${pageSize}`);
       setResults(response.data.results);
+      setTotalResults(response.data.count);
     } catch (error) {
       console.error('Ошибка при получении данных:', error);
     }
@@ -131,6 +133,14 @@ const SearchComponent = () => {
   const getRegionNameById = (id) => {
     const region = referenceData.region.find(region => region.id === id);
     return region ? region.name_ru : 'N/A';
+  };
+
+  const totalPages = Math.ceil(totalResults / pageSize);
+
+  const handlePageChange = (newPage) => {
+    if (newPage > 0 && newPage <= totalPages) {
+      setCurrentPage(newPage);
+    }
   };
 
   return (
@@ -273,7 +283,7 @@ const SearchComponent = () => {
           <tbody>
             {results.map((result, index) => (
               <tr key={result.id}>
-                <td>{index + 1}</td>
+                <td>{index + 1 + (currentPage - 1) * pageSize}</td>
                 <td>{`${result.first_name} ${result.second_name} ${result.third_name}`}</td>
                 <td>{result.pin}</td>
                 <td>{getRegionNameById(result.address?.region)}</td>
@@ -286,6 +296,12 @@ const SearchComponent = () => {
             ))}
           </tbody>
         </table>
+
+        <div className="pagination">
+          <button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>Предыдущая</button>
+         <div> <span>Страница {currentPage} из {totalPages}</span></div>
+          <button onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages}>Следующая</button>
+        </div>
 
         <Modal show={showModal} onClose={() => setShowModal(false)}>
           <RecipientDetails recipient={selectedRecipient} />

@@ -65,7 +65,22 @@
 .btn:hover, .details-button:hover {
   background-color: #0890ff;
 }
-
+.pagination{
+  display: flex;
+  justify-content: center;
+  gap:15px;
+  margin-top: 20px;
+  align-items: center;
+}
+.pagination button{
+  padding: 8px;
+  border-radius: 4px;
+  outline: none;
+  border: none;
+  color: white;
+  background-color: #40a9ff;
+  cursor: pointer;
+}
 .error-message {
   color: red;
   width: 200px;
